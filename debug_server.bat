@@ -1,0 +1,1 @@
+start x64/Debug/GosNIIAS.exe server 127.0.0.1 12345

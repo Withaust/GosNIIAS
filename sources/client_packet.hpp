@@ -10,7 +10,7 @@ using json = nlohmann::json;
 
 class ClientPacket : public Packet
 {
-private:
+public:
 
     struct LimitEntry
     {
@@ -23,6 +23,8 @@ private:
         uint8_t word = 0;
         uint8_t offset = 0;
     };
+
+private:
 
     std::string _file = "limits.json";
     std::unordered_map<std::string, LimitEntry> _entries;
@@ -43,6 +45,8 @@ public:
 
     ClientPacket();
     virtual ~ClientPacket();
+
+    const std::unordered_map<std::string, LimitEntry>& get_entries();
 
     void write(std::string p_name, float p_value);
     // THROWS on invalid limits since this is an exposed API

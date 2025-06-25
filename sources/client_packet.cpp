@@ -39,7 +39,11 @@ void ClientPacket::_write(const LimitEntry& p_entry, float p_value)
 {
     int32_t word;
 
-    if (p_entry.type == "float")
+    if (p_entry.type == "empty")
+    {
+        return;
+    }
+    else if (p_entry.type == "float")
     {
         word = _bit_pack_float(p_value, p_entry.bits, p_entry.range_min, p_entry.range_max);
     }
@@ -60,6 +64,11 @@ void ClientPacket::_write(const LimitEntry& p_entry, float p_value)
 
 float ClientPacket::_read(const LimitEntry& p_entry, bool& p_success)
 {
+    if (p_entry.type == "empty")
+    {
+        return 0.0f;
+    }
+
     _temp_bitset.reset();
 
     auto& target_word = _words.at(p_entry.word);
@@ -85,18 +94,18 @@ float ClientPacket::_read(const LimitEntry& p_entry, bool& p_success)
     if (result < p_entry.range_min || result > p_entry.range_max)
     {
         p_success = false;
-        return std::clamp(0.0f, p_entry.range_min, p_entry.range_max);
     }
     else
     {
         p_success = true;
-        return result;
     }
+
+    return result;
 }
 
 bool ClientPacket::_validate()
 {
-    for(const auto& entry : _entries)
+    for (const auto& entry : _entries)
     {
         bool success = true;
         float result = _read(entry.second, success);
@@ -142,6 +151,11 @@ ClientPacket::~ClientPacket()
 
 }
 
+const std::unordered_map<std::string, ClientPacket::LimitEntry>& ClientPacket::get_entries()
+{
+    return _entries;
+}
+
 void ClientPacket::write(std::string p_name, float p_value)
 {
     auto itterator = _entries.find(p_name);
@@ -171,23 +185,23 @@ float ClientPacket::read(std::string p_name)
         else
         {
             throw std::runtime_error("Read variable " + std::to_string(result) + " does not fall in range of [" +
-                 std::to_string(itterator->second.range_min) + "," + std::to_string(itterator->second.range_max) + "]");
+                std::to_string(itterator->second.range_min) + "," + std::to_string(itterator->second.range_max) + "]");
         }
     }
 
     throw std::runtime_error("Tried writing an unknown variable " + p_name);
 }
 
-template<typename T> 
+template<typename T>
 void format_print(T t, const int& width)
 {
     std::cout << std::left << std::setw(width) << std::setfill(' ') << t;
 }
 
-size_t utf8_codepoint_count(const std::string& s) 
+size_t utf8_codepoint_count(const std::string& s)
 {
     size_t count = 0;
-    for (size_t i = 0; i < s.size(); ) 
+    for (size_t i = 0; i < s.size(); )
     {
         unsigned char c = s[i];
         size_t char_len = 1;
@@ -204,7 +218,7 @@ size_t utf8_codepoint_count(const std::string& s)
 }
 
 template <>
-void format_print<std::string>(std::string t, const int& width) 
+void format_print<std::string>(std::string t, const int& width)
 {
     size_t len = utf8_codepoint_count(t);
     std::cout << t;

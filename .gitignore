@@ -567,7 +567,6 @@ compile_commands.json
 # User-specific files
 *.rsuser
 *.suo
-*.user
 *.userosscache
 *.sln.docstates
 

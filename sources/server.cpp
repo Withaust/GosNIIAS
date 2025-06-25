@@ -20,9 +20,9 @@ void Server::_handle_receive(const std::error_code& p_error_code, std::size_t p_
     {
         if (p_bytes_recieved == _client_packet.get_valid_byte_count())
         {
+            std::cout << "Received client packet from " << _remote_endpoint << "!\n";
             _written_bytes = static_cast<uint16_t>(p_bytes_recieved);
             bool success = _client_packet.deserialize(_message, _written_bytes);
-            std::cout << "Received client packet from " << _remote_endpoint << "!\n";
             _client_packet.print();
 
             _server_packet.set_identified(true);

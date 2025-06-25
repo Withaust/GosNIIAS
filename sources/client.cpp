@@ -4,7 +4,30 @@
 
 void Client::_send()
 {
+    for (const auto& entry : _client_packet.get_entries())
+    {
+        if (entry.second.type == "empty")
+        {
+            continue;
+        }
+
+        float value;
+
+        std::cout << "Please enter a value for a variable \"" << entry.first << "\" PREFERABLY within a range of "
+            << "[" << entry.second.range_min << "," << entry.second.range_max << "] (not enforced)\n";
+
+        while (!(std::cin >> value))
+        {
+            std::cin.clear(); // Clear error flags
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+            std::cout << "Invalid input. Please enter a valid value:\n";
+        }
+
+        _client_packet.write(entry.first, value);
+    }
+
     // Sending example test packet
+    /*
     _client_packet.write("X", 20);
     _client_packet.write("Y", 30);
     _client_packet.write("V", 40);
@@ -12,6 +35,7 @@ void Client::_send()
     _client_packet.write("S", 2);
     _client_packet.write("A", 12.0);
     _client_packet.write("P", 130); // Try setting this to something like 140 and see that error checking&correction kicks in as expected
+    */
     _client_packet.serialize(_message, _written_bytes);
 
     _socket.async_send_to(asio::buffer(_message, _written_bytes), _target_endpoint,

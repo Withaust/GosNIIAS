@@ -1,1 +1,82 @@
-[{	"name": "X",	"description": "Координата X",	"bits": 6,	"range_min": 0,	"range_max": 63,	"type": "int",	"word": 0,	"offset": 10},{	"name": "Y",	"description": "Координата Y",	"bits": 6,	"range_min": -32,	"range_max": 31,	"type": "int",	"word": 0,	"offset": 2},{	"name": "V",	"description": "Скорость",	"bits": 8,	"range_min": 0,	"range_max": 255,	"type": "int",	"word": 1,	"offset": 8},{	"name": "M",	"description": "Режим работы",	"bits": 2,	"range_min": 0,	"range_max": 3,	"type": "int",	"word": 1,	"offset": 6},{	"name": "S",	"description": "Состояние",	"bits": 2,	"range_min": 0,	"range_max": 3,	"type": "int",	"word": 1,	"offset": 2},{	"name": "A",	"description": "Ускорение",	"bits": 8,	"range_min": -12.7,	"range_max": 12.8,	"type": "float",	"word": 2,	"offset": 8},{	"name": "P",	"description": "Мощность",	"bits": 8,	"range_min": 0,	"range_max": 130,	"type": "int",	"word": 2,	"offset": 0},{	"name": "R",	"description": "Резерв",	"bits": 16,	"range_min": 0,	"range_max": 0,	"type": "int",	"word": 3,	"offset": 0}]
+[
+   {
+      "name": "X",
+      "description": "Координата X",
+      "bits": 6,
+      "range_min": 0,
+      "range_max": 63,
+      "type": "int",
+      "word": 0,
+      "offset": 10
+   },
+   {
+      "name": "Y",
+      "description": "Координата Y",
+      "bits": 6,
+      "range_min": -32,
+      "range_max": 31,
+      "type": "int",
+      "word": 0,
+      "offset": 2
+   },
+   {
+      "name": "V",
+      "description": "Скорость",
+      "bits": 8,
+      "range_min": 0,
+      "range_max": 255,
+      "type": "int",
+      "word": 1,
+      "offset": 8
+   },
+   {
+      "name": "M",
+      "description": "Режим работы",
+      "bits": 2,
+      "range_min": 0,
+      "range_max": 3,
+      "type": "int",
+      "word": 1,
+      "offset": 6
+   },
+   {
+      "name": "S",
+      "description": "Состояние",
+      "bits": 2,
+      "range_min": 0,
+      "range_max": 3,
+      "type": "int",
+      "word": 1,
+      "offset": 2
+   },
+   {
+      "name": "A",
+      "description": "Ускорение",
+      "bits": 8,
+      "range_min": -12.7,
+      "range_max": 12.8,
+      "type": "float",
+      "word": 2,
+      "offset": 8
+   },
+   {
+      "name": "P",
+      "description": "Мощность",
+      "bits": 8,
+      "range_min": 0,
+      "range_max": 130,
+      "type": "int",
+      "word": 2,
+      "offset": 0
+   },
+   {
+      "name": "R",
+      "description": "Резерв",
+      "bits": 16,
+      "range_min": 0,
+      "range_max": 0,
+      "type": "empty",
+      "word": 3,
+      "offset": 0
+   }
+]
